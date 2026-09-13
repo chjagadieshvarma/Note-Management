@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Note</title>
+</head>
+
+<body>
+
+    <h1>Update Note</h1>
+
+    <form action="/updatenote/{{note[0]}}" method="POST">
+
+        <label>Title:</label>
+        <br>
+
+        <input type="text" name="title" value="{{ note[2] }}" >
+
+        <br><br>
+
+        <label>Content:</label>
+        <br>
+
+        <textarea name="content" rows="10" cols="50" >{{ note[3] }}</textarea>
+
+        <br><br>
+
+        <button type="submit">Update Note</button>
+
+    </form>
+
+    <br>
+
+    <a href="/viewallnote">Back to My Notes</a>
+
+</body>
+
+</html>

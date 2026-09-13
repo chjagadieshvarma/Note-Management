@@ -3,6 +3,7 @@ import mysql.connector
 from werkzeug.security import generate_password_hash,check_password_hash
 
 app=Flask(__name__)
+
 app.secret_key="Note_Management_System_key"
 
 conn=mysql.connector.connect(
@@ -80,10 +81,61 @@ def add_note():
     return redirect(url_for('login'))
 
 
+@app.route('/viewallnote')
+def viewallnote():
+    if session.get('login'):
+        user_id=session['user_id']
+        cursor=conn.cursor()
+        cursor.execute("select * from notes where user_id=%s order by created_at asc",(user_id,))
+        notes=cursor.fetchall()
+        cursor.close()
+        return render_template('viewallnote.html',notes=notes)
+    return redirect(url_for('login'))
+
+@app.route('/viewnotes/<int:id>')
+def viewnotes(id):
+
+    if session.get('login'):
+
+        user_id = session['user_id']
+
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "select * from notes where id=%s and user_id=%s",
+            (id, user_id)
+        )
+
+        note = cursor.fetchone()
+
+        cursor.close()
+
+        if note:
+            return render_template('viewnote.html', note=note)
+
+        return "Note not found!"
+
+    return redirect(url_for('login'))
 
 
-
-
+@app.route('/updatenote/<int:id>',methods=['GET','POST'])
+def updatenote(id):
+    if session.get('login'):
+        user_id=session['user_id']
+        cursor=conn.cursor()
+        if request.method=='POST':
+            title=request.form['title']
+            content=request.form['content']
+            cursor.execute("""update notes set title=%s,content=%s where id=%s and user_id=%s""",(title,content,id,user_id))
+            conn.commit()
+            cursor.close()
+            return """Note updated successfully... <a href="/viewallnote">View all Notes</a>"""
+        cursor.execute("select * from notes where id=%s and user_id=%s",(id,user_id))
+        note=cursor.fetchone()
+        cursor.close()
+        if note:
+            return render_template('updatenote.html',note=note)
+    return redirect(url_for('login'))
 
 
 
