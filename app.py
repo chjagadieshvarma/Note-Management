@@ -137,6 +137,18 @@ def updatenote(id):
             return render_template('updatenote.html',note=note)
     return redirect(url_for('login'))
 
+@app.route('/deletenote/<int:id>')
+def deletenote(id):
+    if session.get('login'):
+        user_id=session['user_id']
+
+        cursor=conn.cursor()
+        cursor.execute("delete from notes where id=%s and user_id=%s",(id,user_id))
+        conn.commit()
+        cursor.close()
+        return redirect(url_for('viewallnote'))
+    return redirect(url_for('login'))
+
 
 
 
