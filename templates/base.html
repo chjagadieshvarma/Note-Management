@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Note Management System{% endblock %}</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+
+            <a class="navbar-brand" href="/dashboard">
+                📝 Note Management System
+            </a>
+
+            {% if session.get('login') %}
+                <a class="btn btn-outline-light" href="/logout">
+                    Logout
+                </a>
+            {% endif %}
+
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center mt-5 py-3">
+        <p class="mb-0">
+            © 2026 Note Management System
+        </p>
+    </footer>
+
+</body>
+
+</html>

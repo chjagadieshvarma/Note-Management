@@ -1,48 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Notes</title>
-</head>
+{% block title %}My Notes{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>My Notes</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-    {% if notes %}
+    <h2>📒 My Notes</h2>
+
+    <a href="/add_note" class="btn btn-primary">
+        ➕ Add Note
+    </a>
+
+</div>
+
+
+{% if notes %}
+
+    <div class="row">
 
         {% for note in notes %}
 
-            <p>
-                Title: <a href="/viewnotes/{{note[0]}}">{{ note[2] }}</a>
-                
-            </p>
+            <div class="col-md-6 col-lg-4 mb-4">
 
-            <p>
-                Created at:
-                {{ note[4] }}
-            </p>
+                <div class="card shadow-sm h-100">
 
-            <hr>
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+                            <a href="/viewnotes/{{ note[0] }}"
+                               class="text-decoration-none">
+                                {{ note[2] }}
+                            </a>
+                        </h5>
+
+                        <p class="text-muted small mb-0">
+                            🕒 Created at: {{ note[4] }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         {% endfor %}
 
-    {% else %}
+    </div>
 
-        <p>You don't have any notes yet...</p>
+{% else %}
 
-    {% endif %}
+    <div class="text-center mt-5">
 
-    <br>
+        <h4>No notes yet 📝</h4>
 
-    <a href="/add_note">Add New Note</a>
+        <p class="text-muted">
+            You haven't created any notes yet.
+        </p>
 
-    <br><br>
+        <a href="/add_note" class="btn btn-primary">
+            Create Your First Note
+        </a>
 
-    <a href="/dashboard">Back to Dashboard</a>
+    </div>
 
-</body>
+{% endif %}
 
-</html>
+
+<div class="text-center mt-3">
+
+    <a href="/dashboard" class="btn btn-outline-secondary">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

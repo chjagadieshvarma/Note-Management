@@ -1,32 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Note</title>
-</head>
-<body>
-    <h1>ADD NOTE</h1><br>
+{% extends "base.html" %}
 
-    <form method="POST">
-        <label>Title</label>
-        <input type="text" name="title" required> <br><br>
+{% block title %}Add Note{% endblock %}
 
-        <label>Content</label>
-        <textarea name="content" rows="10" cols="50"></textarea> <br><br>
+{% block content %}
 
-        <button type="submit">Add Note</button>
-    </form><br>
+<div class="row justify-content-center">
 
-    <a href="/dashboard">Back to Dashboard</a>
+    <div class="col-md-8">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h2 class="text-center mb-4">➕ Add New Note</h2>
+
+                <form method="POST">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Note Title
+                        </label>
+
+                        <input
+                            type="text"
+                            name="title"
+                            class="form-control"
+                            placeholder="Enter note title"
+                            required
+                        >
+
+                    </div>
 
 
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Note Content
+                        </label>
+
+                        <textarea
+                            name="content"
+                            class="form-control"
+                            rows="8"
+                            placeholder="Write your note here..."
+                            required
+                        ></textarea>
+
+                    </div>
 
 
+                    <div class="d-grid">
+
+                        <button type="submit" class="btn btn-primary">
+                            💾 Save Note
+                        </button>
+
+                    </div>
+
+                </form>
 
 
+                <div class="text-center mt-3">
 
+                    <a href="/dashboard" class="btn btn-outline-secondary">
+                        ← Back to Dashboard
+                    </a>
 
+                </div>
 
-</body>
-</html>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -15,7 +15,7 @@ conn=mysql.connector.connect(
 
 @app.route('/')
 def home():
-    return f"Welcome to Note Management System"
+    return render_template("login.html")
 
 @app.route('/register',methods=['GET','POST'])
 def register():
